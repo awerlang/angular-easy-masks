@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html ng-app="app">
+
+<head>
+    <script src="../bower_components/angular/angular.js"></script>
+    <script src="../release/angular-easy-masks.js"></script>
+    <script src="controller.js"></script>
+</head>
+
+<body ng-controller="TestController as ctrl">
+<form name="ctrl.myForm">
+    <h1>Hello angular-easy-masks!</h1>
+    <label for="">Vanilla input:</label>
+    <input type="number" name="myInput" max="3" ng-keydown="ctrl.resetWithCancel($event, 'myInput')" ng-model="ctrl.field0" placeholder="999.999.999-99" ng-model-options="{ updateOn: 'blur', debounce: 2000, allowInvalid: true }" />
+    <br />Value: {{ctrl.field0}}
+
+    <hr />
+    <label for="">Resettable (press ESC):</label>
+    <input type="text" name="myInput1" ng-keydown="ctrl.resetWithCancel($event, 'myInput1')" ng-model="ctrl.field1" wt-easy-mask="" placeholder="999.999.999-99" ng-model-options="{ updateOn: 'blur', debounce: 2000 }" />
+    <br />Value: {{ctrl.field1}}
+
+    <hr />
+    <label for="">allowInvalid = true:</label>
+    <input type="text" ng-model="ctrl.field2" ng-model-options="{allowInvalid: true}" wt-easy-mask="" placeholder="999.999.999-99" />
+    <br />Value: {{ctrl.field2}}
+
+    <hr />
+    <label for="">Simple mask:</label>
+    <input type="text" ng-model="ctrl.field3" wt-easy-mask="" placeholder="999.999.999-99" />
+    <br />Value: {{ctrl.field3}}
+
+    <hr />
+    <label for="">Long mask:</label>
+    <input type="text" ng-model="ctrl.field4" wt-easy-mask="" placeholder="99999.99999 99999.999999 99999.999999 9 99999999999999" />
+    <br />Value: {{ctrl.field4}}
+
+    <button type="button" ng-click="ctrl.load()">Load</button>
+
+    <pre>{{ctrl.myForm.$error}}</pre>
+</form>
+</body>
+
+</html>

@@ -1,7 +1,7 @@
 # angular-easy-masks
 
 AngularJS component for input fields based on a configurable mask. 
-Compatible with **AngularJS 1.2+**. 
+Compatible with **AngularJS 1.3.4+**. 
 Works together with **ngModelOptions** introduced in AngularJS 1.3.
 
 ## Why?
@@ -42,7 +42,7 @@ All this work is based on the following assumptions:
 
 ## Features
 
-* Angular native implementation compatible with 1.2+;
+* Angular native implementation compatible with 1.3.4+;
 * Validate input format, setting `ngFormController's $error` property as appropriate;
 * Store separators in models by default (WYSIWYG);
 * Handles source model containing separators or not;

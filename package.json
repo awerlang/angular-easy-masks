@@ -4,7 +4,9 @@
   "description": "Angular component for input fields based on a configurable mask",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "build": "./node_modules/.bin/uglifyjs src/masks.js src/directive.js src/module.js -b -e --preamble \"// https://github.com/awerlang/angular-easy-masks\" -o release/angular-easy-masks.js",
+    "release": "./node_modules/.bin/uglifyjs src/masks.js src/directive.js src/module.js -c -e --preamble \"// https://github.com/awerlang/angular-easy-masks\" -o release/angular-easy-masks.min.js",
+    "test": "karma start"
   },
   "repository": {
     "type": "git",
@@ -20,16 +22,18 @@
     "masks",
     "ngmodel"
   ],
-  "author": "André Werlang",
+  "author": "AndrÃ© Werlang",
   "license": "MIT",
   "bugs": {
     "url": "https://github.com/awerlang/angular-easy-masks/issues"
   },
   "homepage": "https://github.com/awerlang/angular-easy-masks",
   "devDependencies": {
+    "conventional-changelog": "0.0.17",
     "jasmine-core": "^2.2.0",
     "karma": "^0.12.31",
     "karma-chrome-launcher": "^0.1.8",
-    "karma-jasmine": "^0.3.5"
+    "karma-jasmine": "^0.3.5",
+    "uglify-js": "^2.4.20"
   }
 }
