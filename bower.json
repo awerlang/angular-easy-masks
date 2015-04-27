@@ -1,0 +1,31 @@
+{
+  "name": "angular-easy-masks",
+  "version": "0.1.0",
+  "homepage": "https://github.com/awerlang/angular-easy-masks",
+  "authors": [
+    "André Werlang"
+  ],
+  "description": "Angular component for input fields based on a configurable mask",
+  "main": "index.js",
+  "keywords": [
+    "angular",
+    "angularjs",
+    "forms",
+    "input",
+    "text",
+    "mask",
+    "masks",
+    "ngmodel"
+  ],
+  "license": "MIT",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "angular": "1.2.0"
+  }
+}
