@@ -13,6 +13,10 @@ describe('easy-mask', function () {
             expect(element.attr('maxlength')).toBe("8");
         });
 
+        it('sets attribute placeholder', function () {
+            expect(element.attr('placeholder')).toBe("99.999-9");
+        });
+
         it('displays already formatted text', function () {
             scope.inputText = "12.345-6";
             scope.$digest();

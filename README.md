@@ -63,6 +63,12 @@ Also, the following requirements can be achieved by means of integrating with ot
 * Raise events on format valid/invalid;
 * Handle optional symbols in input mask;
 
+## Configuration
+
+    app.config(function (easyMaskProvider) {
+        easyMaskProvider.publishMask('myId', '999.999.999-99');
+    });
+
 ## License
 
 MIT
