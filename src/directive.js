@@ -1,6 +1,6 @@
 'use strict';
 
-function wtEasyMask(easyMask) {
+function wtEasyMask($parse, easyMask) {
     return {
         restrict: 'A',
         require: 'ngModel',
@@ -8,6 +8,9 @@ function wtEasyMask(easyMask) {
             var mask = easyMask.getMask(attrs.wtEasyMask) || attrs.placeholder || '';
             attrs.maxlength || attrs.$set('maxlength', mask.length);
             attrs.placeholder || attrs.$set('placeholder', mask);
+
+            var options = attrs.wtEasyMaskOptions ? $parse(attrs.wtEasyMaskOptions)(scope) : {};
+            var removeSeparators = options.removeSeparators;
 
             var isCompleted = function (value) {
                 return mask.length === value.length;
@@ -27,6 +30,9 @@ function wtEasyMask(easyMask) {
 
             ngModelCtrl.$parsers.push(function (value) {
                 var parsedValue = easyMask(value, mask);
+                if (removeSeparators) {
+                    parsedValue = parsedValue.replace(/[.\-/ ]/g, '');
+                }
                 return parsedValue === '' ? null : parsedValue;
             });
 

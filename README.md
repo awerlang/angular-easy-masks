@@ -68,6 +68,15 @@ Also, the following requirements can be achieved by means of integrating with ot
     app.config(function (easyMaskProvider) {
         easyMaskProvider.publishMask('myId', '999.999.999-99');
     });
+    
+### Directives
+
+#### wt-easy-mask
+
+ * wt-easy-mask: the mask
+ * placeholder: the mask (optional, if different from the mask)
+ * wt-easy-mask-options:
+   * removeSeparators: boolean = `true`, if separators should be removed before updating the model 
 
 ### Filters
 

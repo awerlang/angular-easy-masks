@@ -169,4 +169,31 @@ describe('easy-mask', function () {
             input(' ', '', null);
         });
     });
+
+    describe('options: remove separators', function () {
+        var element, scope;
+        beforeEach(module('wt.easy'));
+        beforeEach(inject(function ($compile, $rootScope) {
+            scope = $rootScope.$new();
+            element = $compile('<input type="text" ng-model="inputText" wt-easy-mask="99.999-9" wt-easy-mask-options="{removeSeparators: true}">')(scope);
+        }));
+
+        it('maintain separators when pristine', function () {
+            scope.inputText = "12.345-6";
+            scope.$digest();
+            expect(element.controller('ngModel').$viewValue).toBe("12.345-6");
+            expect(element.controller('ngModel').$modelValue).toBe("12.345-6");
+        });
+
+        it('remove separators on input complete', function () {
+            var input = function (type, viewValue, modelValue) {
+                element.val(type);
+                element.triggerHandler('input');
+                expect(element.controller('ngModel').$viewValue).toBe(viewValue);
+                expect(element.controller('ngModel').$modelValue).toBe(modelValue);
+            };
+
+            input('12.345.6', '12.345-6', '123456');
+        });
+    });
 });
