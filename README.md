@@ -4,6 +4,8 @@ AngularJS component for input fields based on a configurable mask.
 Compatible with **AngularJS 1.3.4+**. 
 Works together with **ngModelOptions** introduced in AngularJS 1.3.
 
+[Live Demo](http://awerlang.github.io/angular-easy-masks/examples/)
+
 ## Why?
 
 The problem of typing data according to some predefined mask is nothing new. 
