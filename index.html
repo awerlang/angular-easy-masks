@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html lang="en-us">
+  <head>
+    <meta charset="UTF-8">
+    <title>Angular Easy Masks by awerlang</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" type="text/css" href="stylesheets/normalize.css" media="screen">
+    <link href='http://fonts.googleapis.com/css?family=Open+Sans:400,700' rel='stylesheet' type='text/css'>
+    <link rel="stylesheet" type="text/css" href="stylesheets/stylesheet.css" media="screen">
+    <link rel="stylesheet" type="text/css" href="stylesheets/github-light.css" media="screen">
+  </head>
+  <body>
+    <section class="page-header">
+      <h1 class="project-name">Angular Easy Masks</h1>
+      <h2 class="project-tagline">Angular component for input fields based on a configurable mask</h2>
+      <a href="https://github.com/awerlang/angular-easy-masks" class="btn">View on GitHub</a>
+      <a href="https://github.com/awerlang/angular-easy-masks/zipball/master" class="btn">Download .zip</a>
+      <a href="https://github.com/awerlang/angular-easy-masks/tarball/master" class="btn">Download .tar.gz</a>
+    </section>
+
+    <section class="main-content">
+      <h1>
+<a id="angular-easy-masks" class="anchor" href="#angular-easy-masks" aria-hidden="true"><span class="octicon octicon-link"></span></a>angular-easy-masks</h1>
+
+<p>AngularJS component for input fields based on a configurable mask. 
+Compatible with <strong>AngularJS 1.3.4+</strong>. 
+Works together with <strong>ngModelOptions</strong> introduced in AngularJS 1.3.</p>
+
+<h2>
+<a id="why" class="anchor" href="#why" aria-hidden="true"><span class="octicon octicon-link"></span></a>Why?</h2>
+
+<p>The problem of typing data according to some predefined mask is nothing new. 
+Solutions already exists for this, even natively in AngularJS.
+Unfortunately, I didn't managed to find a solution that worked the way it should.</p>
+
+<p>All is needed to such a component is to:</p>
+
+<pre><code>a) Guide user through typing on an input field, inserting character separators where appropriate; and 
+b) If there's an existing value, it should be presented according the mask provided.
+</code></pre>
+
+<p>Quite simple, it seems.</p>
+
+<p>But in practice, not so. 
+I freaked out when I became aware how some libraries approached these requirements 
+(and with hundreds of lines of code, and dozens of concepts to learn). 
+It looks like <strong>clumsy code is winning!!</strong>
+But I <strong>refuse to use that code</strong> in my projects (it's better when we don't see the code, though).</p>
+
+<p>Then I decided to tackle on this problem and here I present you my approach. 
+I also took it as a <strong>exercise of good design</strong>, so it was also pleasing to write.
+When I realized it was actually doing its job well, I decided to polish it and share. 
+From the first prototype, it took a couple of hours more to have it working the <em>AngularJS way</em>. 
+A handful more to make it actually releasable (bower, npm, git).</p>
+
+<p>All this work is based on the following assumptions:</p>
+
+<ul>
+<li>If it is <em>flexible</em>, then it would solve most problems, even ones not aimed by the library author's;</li>
+<li>Focusing on the task of <em>defining input masks</em>, in order to accomplish a greater objective (<em>smooth user input</em>);</li>
+<li>
+<em>Storing input together with separators</em> (if any) makes more sense and should be easy;</li>
+<li>Do <em>not mess with model's value</em> unless user has typed something;</li>
+<li>Do <em>the best to parse user input</em>, even input coming from database, in case it does not fulfill the mask;</li>
+<li>Provide <em>convenience</em> without sacrificing flexibility;</li>
+<li>By keeping <em>code base simple</em>, it is easier to reason about and evolve;</li>
+<li>By fully covering with tests, it can <em>evolve without introducing bugs</em>.</li>
+</ul>
+
+<h2>
+<a id="features" class="anchor" href="#features" aria-hidden="true"><span class="octicon octicon-link"></span></a>Features</h2>
+
+<ul>
+<li>Angular native implementation compatible with 1.3.4+;</li>
+<li>Validate input format, setting <code>ngFormController's $error</code> property as appropriate;</li>
+<li>Store separators in models by default (WYSIWYG);</li>
+<li>Handles source model containing separators or not;</li>
+<li>Allows programmatic change of model value;</li>
+<li>Automatically sets input's <code>maxlength</code> for you;</li>
+<li>Provide filter for use on interpolation;</li>
+<li>Publish common masks under a name;</li>
+<li>Option to remove separator from model value;</li>
+<li>Integrate seamlessly with <code>ngModelOptions</code> (allowInvalid, ngChange, debounce, updateOn).</li>
+</ul>
+
+<p>Also, the following requirements can be achieved by means of integrating with other components:</p>
+
+<ul>
+<li>Automatic focus next component when input is completed.</li>
+</ul>
+
+<h2>
+<a id="future-work" class="anchor" href="#future-work" aria-hidden="true"><span class="octicon octicon-link"></span></a>Future Work</h2>
+
+<ul>
+<li>Delegate validation to custom services;</li>
+<li>Raise events on format valid/invalid;</li>
+<li>Handle optional symbols in input mask;</li>
+</ul>
+
+<h2>
+<a id="usage" class="anchor" href="#usage" aria-hidden="true"><span class="octicon octicon-link"></span></a>Usage</h2>
+
+<pre><code>&lt;input type="text" ng-model="ctrl.field" wt-easy-mask="999.999.999-99" /&gt;
+</code></pre>
+
+<p>or</p>
+
+<pre><code>&lt;input type="text" ng-model="ctrl.field" wt-easy-mask="999.999.999-99" placeholder="Type your Identitication Number"/&gt;
+</code></pre>
+
+<h2>
+<a id="configuration" class="anchor" href="#configuration" aria-hidden="true"><span class="octicon octicon-link"></span></a>Configuration</h2>
+
+<pre><code>app.config(function (easyMaskProvider) {
+    easyMaskProvider.publishMask('myId', '999.999.999-99');
+});
+</code></pre>
+
+<h3>
+<a id="directives" class="anchor" href="#directives" aria-hidden="true"><span class="octicon octicon-link"></span></a>Directives</h3>
+
+<h4>
+<a id="wt-easy-mask" class="anchor" href="#wt-easy-mask" aria-hidden="true"><span class="octicon octicon-link"></span></a>wt-easy-mask</h4>
+
+<ul>
+<li>wt-easy-mask: the mask</li>
+<li>placeholder: the mask (optional, if different from the mask)</li>
+<li>wt-easy-mask-options:
+
+<ul>
+<li>removeSeparators: boolean = <code>true</code>, if separators should be removed before updating the model </li>
+</ul>
+</li>
+</ul>
+
+<h3>
+<a id="filters" class="anchor" href="#filters" aria-hidden="true"><span class="octicon octicon-link"></span></a>Filters</h3>
+
+<pre><code>{{data | easyMask:'99.999-9'}}
+{{data | easyMask:'myId'}}
+</code></pre>
+
+<h2>
+<a id="installation" class="anchor" href="#installation" aria-hidden="true"><span class="octicon octicon-link"></span></a>Installation</h2>
+
+<h3>
+<a id="bower" class="anchor" href="#bower" aria-hidden="true"><span class="octicon octicon-link"></span></a>Bower</h3>
+
+<pre><code>bower install angular-easy-masks --save
+</code></pre>
+
+<h3>
+<a id="application" class="anchor" href="#application" aria-hidden="true"><span class="octicon octicon-link"></span></a>Application</h3>
+
+<h4>
+<a id="html" class="anchor" href="#html" aria-hidden="true"><span class="octicon octicon-link"></span></a>HTML</h4>
+
+<pre><code>&lt;script type="text/javascript" src="release/angular-easy-masks.min.js"&gt;&lt;/script&gt;
+</code></pre>
+
+<h4>
+<a id="javascript" class="anchor" href="#javascript" aria-hidden="true"><span class="octicon octicon-link"></span></a>JavaScript</h4>
+
+<pre><code>var app = angular.module('app', ['wt.easy']);
+</code></pre>
+
+<h2>
+<a id="license" class="anchor" href="#license" aria-hidden="true"><span class="octicon octicon-link"></span></a>License</h2>
+
+<p>MIT</p>
+
+      <footer class="site-footer">
+        <span class="site-footer-owner"><a href="https://github.com/awerlang/angular-easy-masks">Angular Easy Masks</a> is maintained by <a href="https://github.com/awerlang">awerlang</a>.</span>
+
+        <span class="site-footer-credits">This page was generated by <a href="https://pages.github.com">GitHub Pages</a> using the <a href="https://github.com/jasonlong/cayman-theme">Cayman theme</a> by <a href="https://twitter.com/jasonlong">Jason Long</a>.</span>
+      </footer>
+
+    </section>
+
+  
+  </body>
+</html>
+
