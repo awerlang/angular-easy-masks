@@ -1,8 +1,8 @@
 {
   "name": "angular-easy-masks",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "Angular component for input fields based on a configurable mask",
-  "main": "index.js",
+  "main": "release/angular-easy-masks.js",
   "scripts": {
     "build": "./node_modules/.bin/uglifyjs src/masks.js src/directive.js src/module.js -b -e --preamble \"// https://github.com/awerlang/angular-easy-masks\" -o release/angular-easy-masks.js",
     "release": "./node_modules/.bin/uglifyjs src/masks.js src/directive.js src/module.js -c -e --preamble \"// https://github.com/awerlang/angular-easy-masks\" -o release/angular-easy-masks.min.js",

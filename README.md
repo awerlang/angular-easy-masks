@@ -48,6 +48,9 @@ All this work is based on the following assumptions:
 * Handles source model containing separators or not;
 * Allows programmatic change of model value;
 * Automatically sets input's `maxlength` for you;
+* Provide filter for use on interpolation;
+* Publish common masks under a name;
+* Option to remove separator from model value;
 * Integrate seamlessly with `ngModelOptions` (allowInvalid, ngChange, debounce, updateOn).
 
 Also, the following requirements can be achieved by means of integrating with other components:
@@ -56,10 +59,7 @@ Also, the following requirements can be achieved by means of integrating with ot
 
 ## Future Work 
 
-* Provide filter for use on interpolation;
 * Delegate validation to custom services;
-* Publish common masks under a name;
-* Option to remove separator from model value;
 * Raise events on format valid/invalid;
 * Handle optional symbols in input mask;
 

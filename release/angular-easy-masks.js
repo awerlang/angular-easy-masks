@@ -47,13 +47,16 @@
         return parsedValue;
     }
     "use strict";
-    function wtEasyMask(easyMask) {
+    function wtEasyMask($parse, easyMask) {
         return {
             restrict: "A",
             require: "ngModel",
             link: function link(scope, element, attrs, ngModelCtrl) {
-                var mask = attrs.wtEasyMask || attrs.placeholder || "";
+                var mask = easyMask.getMask(attrs.wtEasyMask) || attrs.placeholder || "";
                 attrs.maxlength || attrs.$set("maxlength", mask.length);
+                attrs.placeholder || attrs.$set("placeholder", mask);
+                var options = attrs.wtEasyMaskOptions ? $parse(attrs.wtEasyMaskOptions)(scope) : {};
+                var removeSeparators = options.removeSeparators;
                 var isCompleted = function(value) {
                     return mask.length === value.length;
                 };
@@ -68,6 +71,9 @@
                 });
                 ngModelCtrl.$parsers.push(function(value) {
                     var parsedValue = easyMask(value, mask);
+                    if (removeSeparators) {
+                        parsedValue = parsedValue.replace(/[.\-/ ]/g, "");
+                    }
                     return parsedValue === "" ? null : parsedValue;
                 });
                 element.on("keypress", function(event) {
@@ -87,7 +93,16 @@
         };
     }
     "use strict";
-    angular.module("wt.easy", []).directive("wtEasyMask", wtEasyMask).factory("easyMask", function() {
-        return easyMask;
-    });
+    angular.module("wt.easy", []).directive("wtEasyMask", wtEasyMask).provider("easyMask", function() {
+        var registry = Object.create(null);
+        this.publishMask = function(publishedName, mask) {
+            registry[publishedName.toLowerCase()] = mask;
+        };
+        this.$get = function() {
+            easyMask.getMask = function(mask) {
+                return registry[mask.toLowerCase()] || mask;
+            };
+            return easyMask;
+        };
+    }).filter("easyMask", easyMaskFilter);
 })();
