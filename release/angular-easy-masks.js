@@ -92,6 +92,11 @@
             }
         };
     }
+    function easyMaskFilter(easyMask) {
+        return function(input, mask) {
+            return easyMask(input, mask);
+        };
+    }
     "use strict";
     angular.module("wt.easy", []).directive("wtEasyMask", wtEasyMask).provider("easyMask", function() {
         var registry = Object.create(null);
