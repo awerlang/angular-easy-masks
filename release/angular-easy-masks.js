@@ -98,7 +98,7 @@
         };
     }
     "use strict";
-    angular.module("wt.easy", []).directive("wtEasyMask", wtEasyMask).provider("easyMask", function() {
+    angular.module("wt.easy", []).directive("wtEasyMask", [ "$parse", "easyMask", wtEasyMask ]).provider("easyMask", function() {
         var registry = Object.create(null);
         this.publishMask = function(publishedName, mask) {
             registry[publishedName.toLowerCase()] = mask;
@@ -109,5 +109,5 @@
             };
             return easyMask;
         };
-    }).filter("easyMask", easyMaskFilter);
+    }).filter("easyMask", [ "easyMask", easyMaskFilter ]);
 })();
