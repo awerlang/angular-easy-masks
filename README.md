@@ -69,6 +69,12 @@ Also, the following requirements can be achieved by means of integrating with ot
         easyMaskProvider.publishMask('myId', '999.999.999-99');
     });
 
+### Filters
+
+    {{data | easyMask:'99.999-9'}}
+    {{data | easyMask:'myId'}}
+
+
 ## License
 
 MIT

@@ -13,4 +13,5 @@ angular.module('wt.easy', [])
             };
             return easyMask;
         };
-    });
+    })
+    .filter('easyMask', easyMaskFilter);
