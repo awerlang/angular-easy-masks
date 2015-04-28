@@ -63,6 +63,14 @@ Also, the following requirements can be achieved by means of integrating with ot
 * Raise events on format valid/invalid;
 * Handle optional symbols in input mask;
 
+## Usage
+
+    <input type="text" ng-model="ctrl.field" wt-easy-mask="999.999.999-99" />
+
+or
+
+    <input type="text" ng-model="ctrl.field" wt-easy-mask="999.999.999-99" placeholder="Type your Identitication Number"/>
+
 ## Configuration
 
     app.config(function (easyMaskProvider) {
@@ -83,6 +91,21 @@ Also, the following requirements can be achieved by means of integrating with ot
     {{data | easyMask:'99.999-9'}}
     {{data | easyMask:'myId'}}
 
+## Installation
+
+### Bower
+
+    bower install angular-easy-masks --save
+
+### Application
+
+#### HTML
+
+    <script type="text/javascript" src="release/angular-easy-masks.min.js"></script>
+
+#### JavaScript
+
+    var app = angular.module('app', ['wt.easy']);
 
 ## License
 
