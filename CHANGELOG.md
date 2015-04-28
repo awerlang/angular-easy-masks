@@ -3,6 +3,6 @@
 
 #### Features
 
-* Initial version ([7c708e5c](https://github.com/awerlang/angular-easy-masks/commit/7c708e5c))
+* Initial version ([39cfed38](https://github.com/awerlang/angular-easy-masks/commit/39cfed38))
 
 

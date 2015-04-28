@@ -36,7 +36,7 @@ All this work is based on the following assumptions:
 * *Storing input together with separators* (if any) makes more sense and should be easy;
 * Do *not mess with model's value* unless user has typed something;
 * Do *the best to parse user input*, even input coming from database, in case it does not fulfill the mask;
-* Provide *convenience* without sacrifincing flexibility;
+* Provide *convenience* without sacrificing flexibility;
 * By keeping *code base simple*, it is easier to reason about and evolve;
 * By fully covering with tests, it can *evolve without introducing bugs*.
 
