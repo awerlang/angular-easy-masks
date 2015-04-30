@@ -61,9 +61,19 @@ Also, the following requirements can be achieved by means of integrating with ot
 
 ## Future Work 
 
-* Delegate validation to custom services;
-* Raise events on format valid/invalid;
-* Handle optional symbols in input mask;
+Current version: **v0.1.5**
+
+* v0.2.0
+  * Move to a more robust regex-based parser;
+  * Handle optional symbols in input mask;
+  * Handle alphanumeric symbols in input mask;
+  * Handle input that exceeds mask in length, option strict (default: do not reformat)
+  * BREAKING CHANGE (service): Digit 9 mean optional digits, use digit 0 to mean required
+  * BREAKING CHANGE (directive): Do not reformat unmatched texts
+* v0.2.1 
+  * Delegate validation to custom services;
+  * Raise events on format valid/invalid;
+  * Make possible use in conjunction with `input type="date"`
 
 ## Usage
 
