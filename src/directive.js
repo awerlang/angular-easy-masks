@@ -40,6 +40,15 @@ function wtEasyMask($parse, easyMask) {
                 var keyIsSpace = event.which === 32;
                 if (keyIsSpace) {
                     event.preventDefault();
+                } else {
+                    var currentValue = element.val();
+                    var futureValue = currentValue.substring(0, element.prop('selectionStart'))
+                        + String.fromCharCode(event.which)
+                        + currentValue.substring(element.prop('selectionEnd'));
+                    var parsedValue = easyMask(futureValue, mask);
+                    if (parsedValue.length < currentValue.length) {
+                        event.preventDefault();
+                    }
                 }
             });
 
