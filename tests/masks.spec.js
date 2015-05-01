@@ -18,16 +18,10 @@ describe('easyMask', function () {
             myMask = buildMask('');
         });
 
-        it('empty string returns empty string', function () {
-            expect(myMask('')).toEqual('');
-        });
-
-        it('non-empty string returns empty string', function () {
-            expect(myMask('1')).toEqual('');
-        });
-
-        it('separator returns empty string', function () {
-            expect(myMask('.')).toEqual('');
+        it('any input value returns null', function () {
+            expect(myMask('')).toEqual(null);
+            expect(myMask('1')).toEqual(null);
+            expect(myMask('.')).toEqual(null);
         });
     });
 
@@ -45,10 +39,6 @@ describe('easyMask', function () {
             expect(myMask('1')).toEqual('1');
         });
 
-        it('double digit returns single digit', function () {
-            expect(myMask('11')).toEqual('1');
-        });
-
         it('separator returns empty string', function () {
             expect(myMask('.')).toEqual('');
         });
@@ -61,29 +51,57 @@ describe('easyMask', function () {
     describe('simple separator mask (".")', function () {
         var myMask;
         beforeEach(function () {
-            myMask = buildMask('.');
+            myMask = function(item) {
+                return function () {
+                    buildMask('.')(item);
+                }
+            };
         });
 
-        it('empty string returns empty string', function () {
-            expect(myMask('')).toEqual('');
+        it('for any input value throws error', function () {
+            expect(myMask('')).toThrow();
+            expect(myMask('1')).toThrow();
+            expect(myMask('.')).toThrow();
+            expect(myMask('A')).toThrow();
+            expect(myMask('..')).toThrow();
         });
 
-        it('single digit returns separator', function () {
-            expect(myMask('1')).toEqual('.');
+    });
+
+    describe('input exceeds in length the pattern', function () {
+        var myMask;
+        beforeEach(function () {
+            myMask = buildMask('9');
         });
 
-        it('separator returns separator', function () {
-            expect(myMask('.')).toEqual('.');
+        it('by default do not reformat', function () {
+            expect(myMask('11')).toEqual('1');
+            expect(myMask('1.1')).toEqual('1');
+        });
+    });
+
+    describe('unknown characters in input', function () {
+        var myMask;
+        beforeEach(function () {
+            myMask = buildMask('99.99');
         });
 
-        it('alpha returns separator', function () {
-            expect(myMask('A')).toEqual('.');
+        xit('strips alpha characters at beginning of input', function () {
+            // test disabled as of now is not supported
+            // feature handled by directive only
+            expect(myMask('a')).toEqual('');
+            expect(myMask('a1')).toEqual('1');
         });
-
-        it('double separator returns single separator', function () {
-            expect(myMask('..')).toEqual('.');
+        xit('strips alpha characters at the middle of input', function () {
+            // test disabled as of now is not supported
+            // feature handled by directive only
+            expect(myMask('1a1')).toEqual('11');
+            expect(myMask('1aa1')).toEqual('11');
         });
-
+        it('strips alpha characters at the end of input', function () {
+            expect(myMask('1a')).toEqual('1');
+            expect(myMask('1aa')).toEqual('1');
+        });
     });
 
     describe('mixed numeric mask ("999.99")', function () {

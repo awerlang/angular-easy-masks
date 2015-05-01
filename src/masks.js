@@ -1,47 +1,54 @@
 'use strict';
 
-function isSeparator(char) {
-    return char === '.' || char === '-' || char === '/' || char === ' ';
-}
-function isDigit(char) {
-    return char >= '0' && char <= '9';
+function mapToRegExp(item) {
+    var map = {};
+    map['9'] = '\\d?';
+
+    return map[item];
 }
 
-function testPosition(mask, position, char) {
-    var charAtPos = mask[position];
-    switch (charAtPos) {
-        case '9':
-            return isDigit(char);
-        case ' ':
-            return true;
-        case '.':
-        case '-':
-        case '/':
-            return isSeparator(char);
-        default:
-            return false;
+function isSeparator(char) {
+    return mapToRegExp(char) === undefined;
+}
+
+function buildRegExp(mask) {
+    var result = '';
+
+    var re = /([\-/. ]*)*([9]*)+/g;
+    var groups, separators = [];
+
+    while ((groups = re.exec(mask)) !== null && groups[0] !== '') {
+        separators.push(groups[1]);
+        result += '(' + groups[2].split('').map(mapToRegExp).join('') + ')?';
     }
+
+    return {
+        regExp: new RegExp('^' + result + '.*?$'),
+        separators: separators
+    };
 }
 
 function easyMask(input, mask) {
-    if (typeof input !== 'string') {
-        return null
+    if (typeof input !== 'string' || typeof mask !== 'string' || mask === '') {
+        return null;
     }
-    var parsedValue = '';
-    var inputLen = input.length;
-    var position = 0;
-    while (position < inputLen && parsedValue.length < mask.length) {
-        var ch = input[position];
-        var len = parsedValue.length;
-        var nextCharInMask = mask[len];
-        if (isSeparator(nextCharInMask) && nextCharInMask !== ch) {
-            parsedValue += nextCharInMask;
-        }
-        if (testPosition(mask, parsedValue.length, ch)) {
-            parsedValue += ch;
-        }
-        position++;
+    if (isSeparator(mask[mask.length - 1])) {
+        throw new Error("Mask must not end with a separator: " + mask[mask.length - 1]);
     }
-    return parsedValue;
-}
+    var re = buildRegExp(mask);
 
+    var matches = re.regExp.exec(input.replace(/[.\-/ ]/g, ''));
+    if (matches) {
+        var runningValue = '',
+            separatorsToInsert = re.separators,
+            index = 1,
+            len = matches.length;
+        while (index < len && matches[index] !== undefined) {
+            runningValue += (separatorsToInsert[index-1] || '') + matches[index];
+            index++;
+        };
+        return runningValue;
+    }
+
+    return "";
+}
