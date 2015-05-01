@@ -2,6 +2,7 @@
 
 function mapToRegExp(item) {
     var map = {};
+    map['0'] = '\\d*?';
     map['9'] = '\\d?';
 
     return map[item];
@@ -14,7 +15,7 @@ function isSeparator(char) {
 function buildRegExp(mask) {
     var result = '';
 
-    var re = /([^9]*)?([9]*)+/g;
+    var re = /([^09]*)?([09]*)+/g;
     var groups, separators = [];
 
     while ((groups = re.exec(mask)) !== null && groups[0] !== '') {
@@ -23,7 +24,7 @@ function buildRegExp(mask) {
     }
 
     return {
-        regExp: new RegExp('^' + result + '.*?$'),
+        regExp: new RegExp('^' + result + '$'),
         separators: separators
     };
 }
