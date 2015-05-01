@@ -14,7 +14,7 @@ function isSeparator(char) {
 function buildRegExp(mask) {
     var result = '';
 
-    var re = /([\-/. ]*)*([9]*)+/g;
+    var re = /([^9]*)?([9]*)+/g;
     var groups, separators = [];
 
     while ((groups = re.exec(mask)) !== null && groups[0] !== '') {
@@ -37,7 +37,7 @@ function easyMask(input, mask) {
     }
     var re = buildRegExp(mask);
 
-    var matches = re.regExp.exec(input.replace(/[.\-/ ]/g, ''));
+    var matches = re.regExp.exec(input.replace(/[^\d]/g, ''));
     if (matches) {
         var runningValue = '',
             separatorsToInsert = re.separators,
