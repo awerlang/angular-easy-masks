@@ -13,7 +13,9 @@ function wtEasyMask($parse, easyMask) {
             var removeSeparators = options.removeSeparators;
 
             var isCompleted = function (value) {
-                return mask.length === value.length;
+                var zeroes = mask.match(/0/g);
+                var optionalsCount = zeroes ? zeroes.length : 0;
+                return (mask.length - optionalsCount) <= value.length;
             };
 
             var isValid = function (modelValue, viewValue) {

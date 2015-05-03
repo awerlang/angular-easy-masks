@@ -196,4 +196,32 @@ describe('easy-mask', function () {
             input('12.345.6', '12.345-6', '123456');
         });
     });
+
+    describe('mask with optional symbols', function () {
+        var element, scope;
+        beforeEach(module('wt.easy'));
+        beforeEach(inject(function ($compile, $rootScope) {
+            scope = $rootScope.$new();
+            element = $compile('<input type="text" ng-model="inputText" wt-easy-mask="09.999-9">')(scope);
+        }));
+
+        it('complete text is valid', function () {
+            scope.inputText = "123456";
+            scope.$digest();
+            expect(element.controller('ngModel').$error.mask).not.toBeDefined();
+        });
+
+        it('complete text is valid, skipping optional', function () {
+            scope.inputText = "12345";
+            scope.$digest();
+            expect(element.controller('ngModel').$error.mask).not.toBeDefined();
+        });
+
+        it('partial text is NOT valid', function () {
+            scope.inputText = "1234";
+            scope.$digest();
+            expect(element.controller('ngModel').$error.mask).toBeDefined();
+        });
+
+    });
 });
