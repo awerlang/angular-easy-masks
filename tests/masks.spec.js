@@ -1,4 +1,4 @@
-describe('easyMask', function () {
+describe('service', function () {
 
     var easyMask;
     beforeEach(module('wt.easy'));

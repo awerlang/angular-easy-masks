@@ -1,4 +1,4 @@
-describe('easy-mask', function () {
+describe('directive', function () {
 
     describe('simple mask', function () {
 
