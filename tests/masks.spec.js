@@ -272,4 +272,42 @@ describe('service', function () {
             expect(myMask('12345678901')).toEqual('(12) 34567-8901');
         });
     });
+
+    describe('mask with letters ("LLL-9999")', function () {
+        var myMask;
+        beforeEach(function () {
+            myMask = buildMask('LLL-9999');
+        });
+
+        it('lowercase characters', function () {
+            expect(myMask('abc1234')).toEqual('ABC-1234');
+            expect(myMask('abc-1234')).toEqual('ABC-1234');
+        });
+
+        it('uppercase characters', function () {
+            expect(myMask('ABC1234')).toEqual('ABC-1234');
+            expect(myMask('ABC-1234')).toEqual('ABC-1234');
+        });
+    });
+
+    describe('mask with letters and/or digits ("9999-A")', function () {
+        var myMask;
+        beforeEach(function () {
+            myMask = buildMask('9999-A');
+        });
+
+        it('all digits', function () {
+            expect(myMask('12345')).toEqual('1234-5');
+        });
+
+        it('lowercase characters', function () {
+            expect(myMask('1234a')).toEqual('1234-A');
+            expect(myMask('1234a')).toEqual('1234-A');
+        });
+
+        it('uppercase characters', function () {
+            expect(myMask('1234A')).toEqual('1234-A');
+            expect(myMask('1234A')).toEqual('1234-A');
+        });
+    });
 });
