@@ -5,6 +5,12 @@
     <script src="../bower_components/angular/angular.js"></script>
     <script src="../release/angular-easy-masks.js"></script>
     <script src="controller.js"></script>
+
+    <style>
+        input.ng-invalid, select.ng-invalid {
+            border: solid 1px red;
+        }
+    </style>
 </head>
 
 <body ng-controller="TestController as ctrl">
@@ -28,6 +34,26 @@
     <label for="">Simple mask:</label>
     <input type="text" ng-model="ctrl.field3" wt-easy-mask="" placeholder="999.999.999-99" />
     <br />Value: {{ctrl.field3}}
+
+    <hr />
+    <label for="">Phone mask (8 or 9 digits):</label>
+    <input type="text" ng-model="ctrl.phone1" wt-easy-mask="" placeholder="09999-9999" />
+    <br />Value: {{ctrl.phone1}}
+
+    <hr />
+    <label for="">Phone mask (2 digits plus 8 or 9 digits):</label>
+    <input type="text" ng-model="ctrl.phone2" wt-easy-mask="" placeholder="(99) 09999-9999" />
+    <br />Value: {{ctrl.phone2}}
+
+    <hr />
+    <label for="">Car plate (letters plus numbers):</label>
+    <input type="text" ng-model="ctrl.alpha1" wt-easy-mask="" placeholder="LLL-9999" />
+    <br />Value: {{ctrl.alpha1}}
+
+    <hr />
+    <label for="">Bank account code (digits plus digit or letter):</label>
+    <input type="text" ng-model="ctrl.alpha2" wt-easy-mask="9999-A" />
+    <br />Value: {{ctrl.alpha2}}
 
     <hr />
     <label for="">Long mask:</label>
