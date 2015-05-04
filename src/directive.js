@@ -27,7 +27,8 @@ function wtEasyMask($parse, easyMask) {
             };
 
             ngModelCtrl.$formatters.push(function (value) {
-                return easyMask(value, mask);
+                var formattedValue = easyMask(value, mask);
+                return formattedValue !== '' ? formattedValue : value;
             });
 
             ngModelCtrl.$parsers.push(function (value) {

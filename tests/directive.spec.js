@@ -224,4 +224,28 @@ describe('directive', function () {
         });
 
     });
+
+    describe('input exceeds mask in length', function () {
+        var element, scope;
+        beforeEach(module('wt.easy'));
+        beforeEach(inject(function ($compile, $rootScope) {
+            scope = $rootScope.$new();
+            element = $compile('<input type="text" ng-model="inputText" wt-easy-mask="99.9">')(scope);
+        }));
+
+        it('should not reformat input, by default', function () {
+            var input = function (originalValue, viewValue) {
+                scope.inputText = originalValue;
+                scope.$digest();
+                expect(element.controller('ngModel').$viewValue).toBe(viewValue);
+                expect(element.controller('ngModel').$modelValue).toBe(originalValue);
+            };
+
+            scope.inputText = "";
+            input('12', '12');
+            input('12.3', '12.3');
+            input('12.34', '12.34');
+        });
+
+    });
 });
