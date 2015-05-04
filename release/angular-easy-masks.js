@@ -1,50 +1,76 @@
 // https://github.com/awerlang/angular-easy-masks
 (function() {
     "use strict";
+    function mapToRegExp(item) {
+        var map = {};
+        map["0"] = "\\d*?";
+        map["9"] = "\\d?";
+        map["A"] = "[\\dA-Za-z]*?";
+        map["L"] = "[A-Za-z]?";
+        map["Z"] = "[A-Za-z]*?";
+        return map[item];
+    }
     function isSeparator(char) {
-        return char === "." || char === "-" || char === "/" || char === " ";
+        return mapToRegExp(char) === undefined;
     }
-    function isDigit(char) {
-        return char >= "0" && char <= "9";
+    function wildcardToMapper(item) {
+        var noop = function(item) {
+            return item || "";
+        };
+        var map = {};
+        map["A"] = function(item) {
+            return item.toUpperCase();
+        };
+        map["L"] = function(item) {
+            return item.toUpperCase();
+        };
+        map["Z"] = function(item) {
+            return item.toLowerCase();
+        };
+        return map[item] || noop;
     }
-    function testPosition(mask, position, char) {
-        var charAtPos = mask[position];
-        switch (charAtPos) {
-          case "9":
-            return isDigit(char);
-
-          case " ":
-            return true;
-
-          case ".":
-          case "-":
-          case "/":
-            return isSeparator(char);
-
-          default:
-            return false;
+    function buildRegExp(mask) {
+        var result = "";
+        var re = /([^09ALZ]*)?([09ALZ]*)+/g;
+        var groups, separators = [], mappers = [];
+        function createReplacer(wildcardsInMask) {
+            return function(group) {
+                return Array.prototype.reduce.call(group, function(previous, current, index) {
+                    return previous + wildcardToMapper(wildcardsInMask[index])(current);
+                }, "");
+            };
         }
+        while ((groups = re.exec(mask)) !== null && groups[0] !== "") {
+            separators.push(groups[1]);
+            var wildcardsInMask = groups[2].split("");
+            result += "(" + wildcardsInMask.map(mapToRegExp).join("") + ")?";
+            mappers.push(createReplacer(wildcardsInMask));
+        }
+        return {
+            regExp: new RegExp("^" + result + "$"),
+            separators: separators,
+            mappers: mappers
+        };
     }
     function easyMask(input, mask) {
-        if (typeof input !== "string") {
+        if (typeof input !== "string" || typeof mask !== "string" || mask === "") {
             return null;
         }
-        var parsedValue = "";
-        var inputLen = input.length;
-        var position = 0;
-        while (position < inputLen && parsedValue.length < mask.length) {
-            var ch = input[position];
-            var len = parsedValue.length;
-            var nextCharInMask = mask[len];
-            if (isSeparator(nextCharInMask) && nextCharInMask !== ch) {
-                parsedValue += nextCharInMask;
-            }
-            if (testPosition(mask, parsedValue.length, ch)) {
-                parsedValue += ch;
-            }
-            position++;
+        if (isSeparator(mask[mask.length - 1])) {
+            throw new Error("Mask must not end with a separator: " + mask[mask.length - 1]);
         }
-        return parsedValue;
+        var re = buildRegExp(mask);
+        var matches = re.regExp.exec(input.replace(/[^\dA-Za-z]/g, ""));
+        if (matches) {
+            var runningValue = "", separatorsToInsert = re.separators, index = 1, len = matches.length;
+            while (index < len && matches[index] !== undefined) {
+                var mapper = re.mappers[index - 1];
+                runningValue += (separatorsToInsert[index - 1] || "") + mapper(matches[index]);
+                index++;
+            }
+            return runningValue;
+        }
+        return "";
     }
     "use strict";
     function wtEasyMask($parse, easyMask) {
@@ -58,7 +84,9 @@
                 var options = attrs.wtEasyMaskOptions ? $parse(attrs.wtEasyMaskOptions)(scope) : {};
                 var removeSeparators = options.removeSeparators;
                 var isCompleted = function(value) {
-                    return mask.length === value.length;
+                    var zeroes = mask.match(/0/g);
+                    var optionalsCount = zeroes ? zeroes.length : 0;
+                    return mask.length - optionalsCount <= value.length;
                 };
                 var isValid = function(modelValue, viewValue) {
                     return viewValue == null || viewValue.length === 0 || isCompleted(viewValue);
@@ -67,7 +95,8 @@
                     return isValid(modelValue, viewValue);
                 };
                 ngModelCtrl.$formatters.push(function(value) {
-                    return easyMask(value, mask);
+                    var formattedValue = easyMask(value, mask);
+                    return formattedValue !== "" ? formattedValue : value;
                 });
                 ngModelCtrl.$parsers.push(function(value) {
                     var parsedValue = easyMask(value, mask);
@@ -80,6 +109,13 @@
                     var keyIsSpace = event.which === 32;
                     if (keyIsSpace) {
                         event.preventDefault();
+                    } else {
+                        var currentValue = element.val();
+                        var futureValue = currentValue.substring(0, element.prop("selectionStart")) + String.fromCharCode(event.which) + currentValue.substring(element.prop("selectionEnd"));
+                        var parsedValue = easyMask(futureValue, mask);
+                        if (parsedValue.length < currentValue.length) {
+                            event.preventDefault();
+                        }
                     }
                 });
                 element.on("input", function(event) {

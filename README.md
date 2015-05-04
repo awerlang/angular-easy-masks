@@ -48,6 +48,7 @@ All this work is based on the following assumptions:
 * Validate input format, setting `ngFormController's $error` property as appropriate;
 * Store separators in models by default (WYSIWYG);
 * Handles source model containing separators or not;
+* Handle optional symbols in input mask;
 * Allows programmatic change of model value;
 * Automatically sets input's `maxlength` for you;
 * Provide filter for use on interpolation;
@@ -59,21 +60,24 @@ Also, the following requirements can be achieved by means of integrating with ot
 
 * Automatic focus next component when input is completed.
 
+### Recognized mask wildcards
+
+* `0`: digit, optional
+* `9`: digit, required
+* `A`: alphanumeric, required
+* `L`: alpha, required
+* `Z`: alpha, optional
+
 ## Future Work 
 
-Current version: **v0.1.5**
+Current version: **v0.2.0**
 
-* v0.2.0
-  * Move to a more robust regex-based parser;
-  * Handle optional symbols in input mask;
-  * Handle alphanumeric symbols in input mask;
-  * Handle input that exceeds mask in length, option strict (default: do not reformat)
-  * BREAKING CHANGE (service): Digit 9 mean optional digits, use digit 0 to mean required
-  * BREAKING CHANGE (directive): Do not reformat unmatched texts
 * v0.2.1 
   * Delegate validation to custom services;
   * Raise events on format valid/invalid;
   * Make possible use in conjunction with `input type="date"`
+* before 1.0
+  * BREAKING CHANGE (service): Digit 9 mean optional digits, use digit 0 to mean required
 
 ## Usage
 

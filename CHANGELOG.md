@@ -1,3 +1,23 @@
+## 0.2.0 (2015-05-03)
+
+
+#### Bug Fixes
+
+* **directive:** Input should be considered valid when all required symbols are present ([36885e4c](https://github.com/awerlang/angular-easy-masks/commit/36885e4c), closes [#8](https://github.com/awerlang/angular-easy-masks/issues/8))
+
+
+#### Features
+
+* **directive:**
+  * Do not reformat unmatched input ([3309c61c](https://github.com/awerlang/angular-easy-masks/commit/3309c61c), closes [#7](https://github.com/awerlang/angular-easy-masks/issues/7))
+  * handle keypress to avoid unwanted emptying of field ([d1c380fe](https://github.com/awerlang/angular-easy-masks/commit/d1c380fe))
+* **service:**
+  * Support alphanumeric symbols ([af840c58](https://github.com/awerlang/angular-easy-masks/commit/af840c58), closes [#2](https://github.com/awerlang/angular-easy-masks/issues/2))
+  * Support optional symbols in input mask ([9c29d419](https://github.com/awerlang/angular-easy-masks/commit/9c29d419), closes [#4](https://github.com/awerlang/angular-easy-masks/issues/4))
+  * Support more separators ([58b5c36d](https://github.com/awerlang/angular-easy-masks/commit/58b5c36d), closes [#6](https://github.com/awerlang/angular-easy-masks/issues/6))
+  * Move to regex-based parser ([221cc5dd](https://github.com/awerlang/angular-easy-masks/commit/221cc5dd), closes [#5](https://github.com/awerlang/angular-easy-masks/issues/5))
+
+
 ### 0.1.1 (2015-04-28)
 
 
