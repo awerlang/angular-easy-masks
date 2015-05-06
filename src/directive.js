@@ -49,7 +49,7 @@ function wtEasyMask($parse, easyMask) {
                         + String.fromCharCode(event.which)
                         + currentValue.substring(element.prop('selectionEnd'));
                     var parsedValue = easyMask(futureValue, mask);
-                    if (parsedValue.length < currentValue.length) {
+                    if (parsedValue.length <= currentValue.length) {
                         event.preventDefault();
                     }
                 }

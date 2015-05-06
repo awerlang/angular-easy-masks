@@ -1,3 +1,6 @@
+/* global inject */
+/// <reference path="../typings/jasmine/jasmine.d.ts"/>
+/// <reference path="../typings/jquery/jquery.d.ts"/>
 describe('directive', function () {
 
     describe('simple mask', function () {
@@ -247,5 +250,51 @@ describe('directive', function () {
             input('12.34', '12.34');
         });
 
+    });
+    
+    describe('keypress', function () {
+        var element, scope;
+        beforeEach(module('wt.easy'));
+        beforeEach(inject(function ($compile, $rootScope) {
+            scope = $rootScope.$new();
+            element = $compile('<input type="text" ng-model="inputText" wt-easy-mask="99.9">')(scope);
+
+            document.body.appendChild(element[0]);
+        }));
+        
+        afterEach(function () {
+            element.remove();
+        });
+        
+        function input(initialValue, caretPosition, keyCode, shouldPreventDefault, output) {
+            scope.inputText = initialValue;
+            scope.$digest();
+            element.prop('selectionStart', caretPosition);
+            element.prop('selectionEnd', caretPosition);
+            var event = $.Event('keypress', {which: keyCode});
+            $(element).trigger(event);
+
+            expect(event.isDefaultPrevented()).toBe(shouldPreventDefault);
+            // TODO: triggering events do not reflect into changes in UI
+            // expect(scope.inputText).toBe(output);
+        };
+
+        it('SPACE key should be discarded', function () {
+            input('', 0, 32, true, '');
+            input('1', 0, 32, true, '1');
+            input('1', 1, 32, true, '1');
+        });
+
+        it('wrong symbol is discarded', function () {
+            input('', 0, 65, true, '');
+            input('1', 0, 65, true, '1');
+            input('1', 1, 65, true, '1');
+        });
+
+        it('correct symbol is accepted', function () {
+            input('', 0, 48, false, '');
+            input('1', 0, 48, false, '01');
+            input('1', 1, 48, false, '10');
+        });
     });
 });
