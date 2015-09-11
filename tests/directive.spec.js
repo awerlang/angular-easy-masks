@@ -3,6 +3,12 @@
 /// <reference path="../typings/jquery/jquery.d.ts"/>
 describe('directive', function () {
 
+    function expectTrue(what, actualValue, expectedValue) {
+        if (actualValue !== expectedValue) {
+            expect(what).toBe(expectedValue);
+        }
+    }
+    
     describe('simple mask', function () {
 
         var element, scope;
@@ -266,15 +272,16 @@ describe('directive', function () {
             element.remove();
         });
         
-        function input(initialValue, caretPosition, keyCode, shouldPreventDefault, output) {
+        function input(initialValue, caretPosition, keyCode, shouldPreventDefault, output, selLength) {
             scope.inputText = initialValue;
             scope.$digest();
             element.prop('selectionStart', caretPosition);
-            element.prop('selectionEnd', caretPosition);
+            element.prop('selectionEnd', caretPosition + (selLength || 0));
             var event = $.Event('keypress', {which: keyCode});
             $(element).trigger(event);
 
-            expect(event.isDefaultPrevented()).toBe(shouldPreventDefault);
+            //expect(event.isDefaultPrevented()).toBe(shouldPreventDefault);
+            expectTrue('event.isDefaultPrevented()', event.isDefaultPrevented(), shouldPreventDefault);
             // TODO: triggering events do not reflect into changes in UI
             // expect(scope.inputText).toBe(output);
         };
@@ -295,6 +302,12 @@ describe('directive', function () {
             input('', 0, 48, false, '');
             input('1', 0, 48, false, '01');
             input('1', 1, 48, false, '10');
+        });
+
+        it('selected text is replaced', function () {
+            input('1', 0, 50, false, '2', 1);
+            input('10', 0, 50, false, '2', 1);
+            input('10', 0, 50, false, '2', 2);
         });
     });
 });

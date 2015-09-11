@@ -43,7 +43,7 @@ function wtEasyMask($parse, easyMask) {
                 var keyIsSpace = event.which === 32;
                 if (keyIsSpace) {
                     event.preventDefault();
-                } else {
+                } else if (element.prop('selectionStart') === element.prop('selectionEnd')) {
                     var currentValue = element.val();
                     var futureValue = currentValue.substring(0, element.prop('selectionStart'))
                         + String.fromCharCode(event.which)
