@@ -1,3 +1,13 @@
+## 0.2.1 (2015-09-11)
+
+
+#### Bug Fixes
+
+* **directive:**
+  * Pressing enter with text selected cancels submit event ([aac434ae](https://github.com/awerlang/angular-easy-masks/commit/aac434ae), closes [#11](https://github.com/awerlang/angular-easy-masks/issues/11))
+  * Can't overwrite text, if content is selected ([a4cbd70a](https://github.com/awerlang/angular-easy-masks/commit/a4cbd70a), closes [#12](https://github.com/awerlang/angular-easy-masks/issues/12))
+
+
 ## 0.2.0 (2015-05-03)
 
 

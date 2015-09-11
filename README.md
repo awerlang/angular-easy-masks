@@ -70,9 +70,9 @@ Also, the following requirements can be achieved by means of integrating with ot
 
 ## Future Work 
 
-Current version: **v0.2.0**
+Current version: **v0.2.1**
 
-* v0.2.1 
+* v0.3.0 
   * Delegate validation to custom services;
   * Raise events on format valid/invalid;
   * Make possible use in conjunction with `input type="date"`
