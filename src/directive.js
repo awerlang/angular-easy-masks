@@ -40,6 +40,9 @@ function wtEasyMask($parse, easyMask) {
             });
 
             element.on('keypress', function (event) {
+                var keyIsEnter = event.which === 13;
+                if (keyIsEnter) return;
+
                 var keyIsSpace = event.which === 32;
                 if (keyIsSpace) {
                     event.preventDefault();

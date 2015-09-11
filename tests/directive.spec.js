@@ -309,5 +309,11 @@ describe('directive', function () {
             input('10', 0, 50, false, '2', 1);
             input('10', 0, 50, false, '2', 2);
         });
+
+        it('ENTER key is not handled', function () {
+            input('10', 0, 13, false, '10');
+            input('10', 2, 13, false, '10');
+            input('10', 0, 13, false, '10', 2);
+        });
     });
 });
