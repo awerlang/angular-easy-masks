@@ -1,6 +1,6 @@
 'use strict';
 
-function wtEasyMask($parse, easyMask) {
+function wtEasyMask($parse, $log, easyMask) {
     return {
         restrict: 'A',
         require: 'ngModel',
@@ -35,6 +35,7 @@ function wtEasyMask($parse, easyMask) {
             ngModelCtrl.$parsers.push(function (value) {
                 var parsedValue = easyMask(value, mask);
                 if (removeSeparators) {
+                    $log.warn("This option will soon be deprecated. Use removeMask instead.");
                     parsedValue = parsedValue.replace(/[.\-/ ]/g, '');
                 }
                 if (removeMask) {
