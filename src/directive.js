@@ -11,6 +11,7 @@ function wtEasyMask($parse, easyMask) {
 
             var options = attrs.wtEasyMaskOptions ? $parse(attrs.wtEasyMaskOptions)(scope) : {};
             var removeSeparators = options.removeSeparators;
+            var removeMask = options.removeMask;
 
             var isCompleted = function (value) {
                 var zeroes = mask.match(/0/g);
@@ -35,6 +36,9 @@ function wtEasyMask($parse, easyMask) {
                 var parsedValue = easyMask(value, mask);
                 if (removeSeparators) {
                     parsedValue = parsedValue.replace(/[.\-/ ]/g, '');
+                }
+                if (removeMask) {
+                    parsedValue = parsedValue.replace(/[\W_]+/g, "");
                 }
                 return parsedValue === '' ? null : parsedValue;
             });

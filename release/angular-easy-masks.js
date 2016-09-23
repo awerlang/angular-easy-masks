@@ -83,6 +83,8 @@
                 attrs.placeholder || attrs.$set("placeholder", mask);
                 var options = attrs.wtEasyMaskOptions ? $parse(attrs.wtEasyMaskOptions)(scope) : {};
                 var removeSeparators = options.removeSeparators;
+                var removeMask = options.removeMask;
+
                 var isCompleted = function(value) {
                     var zeroes = mask.match(/0/g);
                     var optionalsCount = zeroes ? zeroes.length : 0;
@@ -102,6 +104,9 @@
                     var parsedValue = easyMask(value, mask);
                     if (removeSeparators) {
                         parsedValue = parsedValue.replace(/[.\-\/ ]/g, "");
+                    }
+                    if (removeMask) {
+                        parsedValue = parsedValue.replace(/[\W_]+/g, "");
                     }
                     return parsedValue === "" ? null : parsedValue;
                 });
