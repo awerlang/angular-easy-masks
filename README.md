@@ -100,7 +100,9 @@ or
  * wt-easy-mask: the mask
  * placeholder: the mask (optional, if different from the mask)
  * wt-easy-mask-options:
-   * removeSeparators: boolean = `true`, if separators should be removed before updating the model 
+   * removeSeparators: boolean = `true`, if separators should be removed before updating the model
+     * Will be deprecated in future version. Use removeMask instead.
+   * removeMask: boolean = `true`, if mask should be removed before updating the model
 
 ### Filters
 

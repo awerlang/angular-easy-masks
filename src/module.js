@@ -1,7 +1,7 @@
 'use strict';
 
 angular.module('wt.easy', [])
-    .directive('wtEasyMask', ['$parse', 'easyMask', wtEasyMask])
+    .directive('wtEasyMask', ['$parse', '$log', 'easyMask', wtEasyMask])
     .provider('easyMask', function () {
         var registry = Object.create(null);
         this.publishMask = function (publishedName, mask) {

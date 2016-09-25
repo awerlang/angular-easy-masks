@@ -83,6 +83,7 @@
                 attrs.placeholder || attrs.$set("placeholder", mask);
                 var options = attrs.wtEasyMaskOptions ? $parse(attrs.wtEasyMaskOptions)(scope) : {};
                 var removeSeparators = options.removeSeparators;
+
                 var isCompleted = function(value) {
                     var zeroes = mask.match(/0/g);
                     var optionalsCount = zeroes ? zeroes.length : 0;

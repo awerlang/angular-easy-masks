@@ -46,6 +46,11 @@
     <br />Value: {{ctrl.phone2}}
 
     <hr />
+    <label for="">Phone mask (10 digits, with removeMask option true):</label>
+    <input type="text" ng-model="ctrl.phone3" wt-easy-mask="(999) 999-9999" wt-easy-mask-options="{removeMask: true}" placeholder="(999) 999-9999" />
+    <br />Value: {{ctrl.phone3}}
+
+    <hr />
     <label for="">Car plate (letters plus numbers):</label>
     <input type="text" ng-model="ctrl.alpha1" wt-easy-mask="" placeholder="LLL-9999" />
     <br />Value: {{ctrl.alpha1}}
