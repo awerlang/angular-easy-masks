@@ -73,7 +73,7 @@
         return "";
     }
     "use strict";
-    function wtEasyMask($parse, easyMask) {
+    function wtEasyMask($parse, $log, easyMask) {
         return {
             restrict: "A",
             require: "ngModel",
@@ -83,7 +83,7 @@
                 attrs.placeholder || attrs.$set("placeholder", mask);
                 var options = attrs.wtEasyMaskOptions ? $parse(attrs.wtEasyMaskOptions)(scope) : {};
                 var removeSeparators = options.removeSeparators;
-
+                var removeMask = options.removeMask;
                 var isCompleted = function(value) {
                     var zeroes = mask.match(/0/g);
                     var optionalsCount = zeroes ? zeroes.length : 0;
@@ -102,7 +102,11 @@
                 ngModelCtrl.$parsers.push(function(value) {
                     var parsedValue = easyMask(value, mask);
                     if (removeSeparators) {
+                        $log.warn("This option will soon be deprecated. Use removeMask instead.");
                         parsedValue = parsedValue.replace(/[.\-\/ ]/g, "");
+                    }
+                    if (removeMask) {
+                        parsedValue = parsedValue.replace(/[\W_]+/g, "");
                     }
                     return parsedValue === "" ? null : parsedValue;
                 });
@@ -137,7 +141,7 @@
         };
     }
     "use strict";
-    angular.module("wt.easy", []).directive("wtEasyMask", [ "$parse", "easyMask", wtEasyMask ]).provider("easyMask", function() {
+    angular.module("wt.easy", []).directive("wtEasyMask", [ "$parse", "$log", "easyMask", wtEasyMask ]).provider("easyMask", function() {
         var registry = Object.create(null);
         this.publishMask = function(publishedName, mask) {
             registry[publishedName.toLowerCase()] = mask;

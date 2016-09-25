@@ -1,3 +1,11 @@
+### 0.2.2 (2016-09-24)
+
+
+#### Features
+
+* **directive:** Add removeMask option ([4f4503e7](https://github.com/awerlang/angular-easy-masks/commit/4f4503e7), closes [#15](https://github.com/awerlang/angular-easy-masks/issues/15))
+
+
 ## 0.2.1 (2015-09-11)
 
 
