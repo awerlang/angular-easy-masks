@@ -44,7 +44,7 @@ function wtEasyMask($parse, $log, easyMask) {
                 return parsedValue === '' ? null : parsedValue;
             });
 
-            element.on('keypress', function (event) {
+            element.on('keyup', function (event) {
                 var keyIsEnter = event.which === 13;
                 if (keyIsEnter) return;
 
