@@ -6,12 +6,14 @@ function wtEasyMask($parse, $log, easyMask) {
         require: 'ngModel',
         link: function link(scope, element, attrs, ngModelCtrl) {
             var mask = easyMask.getMask(attrs.wtEasyMask) || attrs.placeholder || '';
-            attrs.maxlength || attrs.$set('maxlength', mask.length);
-            attrs.placeholder || attrs.$set('placeholder', mask);
-
             var options = attrs.wtEasyMaskOptions ? $parse(attrs.wtEasyMaskOptions)(scope) : {};
+
             var removeSeparators = options.removeSeparators;
             var removeMask = options.removeMask;
+            var emptyPlaceholder = options.emptyPlaceholder;
+
+            attrs.maxlength || attrs.$set('maxlength', mask.length);
+            attrs.$set('placeholder', emptyPlaceholder ? '' : attrs.placeholder || mask);
 
             var isCompleted = function (value) {
                 var zeroes = mask.match(/0/g);

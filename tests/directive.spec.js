@@ -233,6 +233,19 @@ describe('directive', function () {
         });
     });
 
+    describe('options: empty placeholder', function () {
+        var element, scope;
+        beforeEach(module('wt.easy'));
+        beforeEach(inject(function ($compile, $rootScope) {
+            scope = $rootScope.$new();
+            element = $compile('<input type="text" ng-model="inputText" wt-easy-mask="(99).999-9" wt-easy-mask-options="{emptyPlaceholder: true}" placeholder="(99).999-9">')(scope);
+        }));
+
+        it('sets attribute placeholder to empty', function () {
+            expect(element.attr('placeholder')).toBe("");
+        });
+    });
+
     describe('mask with optional symbols', function () {
         var element, scope;
         beforeEach(module('wt.easy'));
