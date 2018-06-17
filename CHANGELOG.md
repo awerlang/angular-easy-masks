@@ -1,3 +1,11 @@
+### 0.2.3 (2018-06-17)
+
+
+#### Features
+
+* **directive:** Allow empty placeholder ([2ccac7bc](https://github.com/awerlang/angular-easy-masks/commit/2ccac7bc), closes [#20](https://github.com/awerlang/angular-easy-masks/issues/20))
+
+
 ### 0.2.2 (2016-09-24)
 
 

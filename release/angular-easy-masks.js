@@ -83,8 +83,8 @@
                 var removeSeparators = options.removeSeparators;
                 var removeMask = options.removeMask;
                 var emptyPlaceholder = options.emptyPlaceholder;
-                attrs.maxlength || attrs.$set('maxlength', mask.length);
-                attrs.$set('placeholder', emptyPlaceholder ? '' : attrs.placeholder || mask);
+                attrs.maxlength || attrs.$set("maxlength", mask.length);
+                attrs.$set("placeholder", emptyPlaceholder ? "" : attrs.placeholder || mask);
                 var isCompleted = function(value) {
                     var zeroes = mask.match(/0/g);
                     var optionalsCount = zeroes ? zeroes.length : 0;
