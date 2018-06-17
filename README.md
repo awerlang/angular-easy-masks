@@ -1,34 +1,34 @@
 # angular-easy-masks
 
-AngularJS component for input fields based on a configurable mask. 
-Compatible with **AngularJS 1.3.4+**. 
+AngularJS component for input fields based on a configurable mask.
+Compatible with **AngularJS 1.3.4+**.
 Works together with **ngModelOptions** introduced in AngularJS 1.3.
 
 [Live Demo](http://awerlang.github.io/angular-easy-masks/examples/)
 
 ## Why?
 
-The problem of typing data according to some predefined mask is nothing new. 
+The problem of typing data according to some predefined mask is nothing new.
 Solutions already exists for this, even natively in AngularJS.
 Unfortunately, I didn't managed to find a solution that worked the way it should.
 
 All is needed to such a component is to:
 
-    a) Guide user through typing on an input field, inserting character separators where appropriate; and 
+    a) Guide user through typing on an input field, inserting character separators where appropriate; and
     b) If there's an existing value, it should be presented according the mask provided.
 
 Quite simple, it seems.
 
-But in practice, not so. 
-I freaked out when I became aware how some libraries approached these requirements 
-(and with hundreds of lines of code, and dozens of concepts to learn). 
+But in practice, not so.
+I freaked out when I became aware how some libraries approached these requirements
+(and with hundreds of lines of code, and dozens of concepts to learn).
 It looks like **clumsy code is winning!!**
 But I **refuse to use that code** in my projects (it's better when we don't see the code, though).
 
-Then I decided to tackle on this problem and here I present you my approach. 
+Then I decided to tackle on this problem and here I present you my approach.
 I also took it as a **exercise of good design**, so it was also pleasing to write.
-When I realized it was actually doing its job well, I decided to polish it and share. 
-From the first prototype, it took a couple of hours more to have it working the *AngularJS way*. 
+When I realized it was actually doing its job well, I decided to polish it and share.
+From the first prototype, it took a couple of hours more to have it working the *AngularJS way*.
 A handful more to make it actually releasable (bower, npm, git).
 
 All this work is based on the following assumptions:
@@ -68,11 +68,11 @@ Also, the following requirements can be achieved by means of integrating with ot
 * `L`: alpha, required
 * `Z`: alpha, optional
 
-## Future Work 
+## Future Work
 
 Current version: **v0.2.1**
 
-* v0.3.0 
+* v0.3.0
   * Delegate validation to custom services;
   * Raise events on format valid/invalid;
   * Make possible use in conjunction with `input type="date"`
@@ -92,7 +92,7 @@ or
     app.config(function (easyMaskProvider) {
         easyMaskProvider.publishMask('myId', '999.999.999-99');
     });
-    
+
 ### Directives
 
 #### wt-easy-mask
@@ -103,6 +103,7 @@ or
    * removeSeparators: boolean = `true`, if separators should be removed before updating the model
      * Will be deprecated in future version. Use removeMask instead.
    * removeMask: boolean = `true`, if mask should be removed before updating the model
+   * emptyPlaceholder: boolean = `true`, to prevent any placeholder on the component
 
 ### Filters
 
