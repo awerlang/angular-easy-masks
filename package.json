@@ -30,10 +30,10 @@
   "homepage": "https://github.com/awerlang/angular-easy-masks",
   "devDependencies": {
     "conventional-changelog": "0.0.17",
-    "jasmine-core": "^2.2.0",
-    "karma": "^0.12.31",
-    "karma-chrome-launcher": "^0.1.8",
-    "karma-jasmine": "^0.3.5",
+    "jasmine-core": "3.1.0",
+    "karma": "2.0.3",
+    "karma-chrome-launcher": "2.2.0",
+    "karma-jasmine": "1.1.2",
     "uglify-js": "^2.4.20"
   }
 }
