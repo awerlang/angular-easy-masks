@@ -3,9 +3,14 @@
   "version": "0.2.3",
   "description": "Angular component for input fields based on a configurable mask",
   "main": "release/angular-easy-masks.js",
+  "browser": "release/angular-easy-masks.js",
+  "module": "release/angular-easy-masks.esm.js",
+  "files": [
+    "release"
+  ],
   "scripts": {
-    "build": "./node_modules/.bin/uglifyjs src/masks.js src/directive.js src/filter.js src/module.js -b -e --preamble \"// https://github.com/awerlang/angular-easy-masks\" -o release/angular-easy-masks.js",
-    "release": "./node_modules/.bin/uglifyjs src/masks.js src/directive.js src/filter.js src/module.js -c -e --preamble \"// https://github.com/awerlang/angular-easy-masks\" -o release/angular-easy-masks.min.js",
+    "build": "rollup -c",
+    "dev": "rollup -c -w",
     "test": "karma start"
   },
   "repository": {
@@ -35,6 +40,7 @@
     "karma-chrome-launcher": "2.2.0",
     "karma-firefox-launcher": "1.1.0",
     "karma-jasmine": "1.1.2",
-    "uglify-js": "^2.4.20"
+    "rollup": "0.63.4",
+    "rollup-plugin-uglify": "4.0.0"
   }
 }

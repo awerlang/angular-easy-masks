@@ -1,4 +1,6 @@
-'use strict';
+import { easyMask } from './masks';
+import { wtEasyMask } from './directive';
+import { easyMaskFilter } from './filter';
 
 angular.module('wt.easy', [])
     .directive('wtEasyMask', ['$parse', '$log', 'easyMask', wtEasyMask])

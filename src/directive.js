@@ -1,6 +1,4 @@
-'use strict';
-
-function wtEasyMask($parse, $log, easyMask) {
+export function wtEasyMask($parse, $log, easyMask) {
     return {
         restrict: 'A',
         require: 'ngModel',

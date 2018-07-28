@@ -1,5 +1,3 @@
-'use strict';
-
 function mapToRegExp(item) {
     var map = {};
     map['0'] = '\\d*?';
@@ -34,7 +32,7 @@ function buildRegExp(mask) {
     var groups,
         separators = [],
         mappers = [];
-        
+
     function createReplacer(wildcardsInMask) {
         return function (group) {
             return Array.prototype.reduce.call(group, function (previous, current, index) {
@@ -57,7 +55,7 @@ function buildRegExp(mask) {
     };
 }
 
-function easyMask(input, mask) {
+export function easyMask(input, mask) {
     if (typeof input !== 'string' || typeof mask !== 'string' || mask === '') {
         return null;
     }
