@@ -45,13 +45,20 @@ export function wtEasyMask($parse, $log, easyMask) {
             });
 
             element.on('keypress', function (event) {
-                var keyIsEnter = event.which === 13;
-                if (keyIsEnter) return;
-
+                var composed = event.altKey || event.ctrlKey;
+                if (composed) {
+                    return;
+                }
                 var keyIsSpace = event.which === 32;
                 if (keyIsSpace) {
                     event.preventDefault();
-                } else if (element.prop('selectionStart') === element.prop('selectionEnd')) {
+                    return;
+                }
+                var keyIsNonPrintable = event.which < 48;
+                if (keyIsNonPrintable) {
+                    return;
+                }
+                if (element.prop('selectionStart') === element.prop('selectionEnd')) {
                     var currentValue = element.val();
                     var futureValue = currentValue.substring(0, element.prop('selectionStart'))
                         + String.fromCharCode(event.which)

@@ -316,11 +316,14 @@ describe('directive', function () {
         });
 
         function input(initialValue, caretPosition, keyCode, shouldPreventDefault, output, selLength) {
+            const which = typeof keyCode === 'number' ? keyCode : keyCode.key;
+            const ctrlKey = typeof keyCode === 'object' ? keyCode.ctrlKey : false;
+            const altKey = typeof keyCode === 'object' ? keyCode.altKey : false;
             scope.inputText = initialValue;
             scope.$digest();
             element.prop('selectionStart', caretPosition);
             element.prop('selectionEnd', caretPosition + (selLength || 0));
-            var event = $.Event('keypress', {which: keyCode});
+            var event = $.Event('keypress', {which, altKey, ctrlKey});
             $(element).trigger(event);
 
             //expect(event.isDefaultPrevented()).toBe(shouldPreventDefault);
@@ -357,6 +360,30 @@ describe('directive', function () {
             input('10', 0, 13, false, '10');
             input('10', 2, 13, false, '10');
             input('10', 0, 13, false, '10', 2);
+        });
+
+        it('TAB key is not handled', function () {
+            input('10', 0, 9, false, '10');
+            input('10', 2, 9, false, '10');
+            input('10', 0, 9, false, '10', 2);
+        });
+
+        it('BACKSPACE key is not handled', function () {
+            input('10', 0, 8, false, '10');
+            input('10', 2, 8, false, '10');
+            input('10', 0, 8, false, '10', 2);
+        });
+
+        it('key with CTRL modifier is not handled', function () {
+            input('10', 0, {key: 65, ctrlKey: true}, false, '10');
+            input('10', 2, {key: 65, ctrlKey: true}, false, '10');
+            input('10', 0, {key: 65, ctrlKey: true}, false, '10', 2);
+        });
+
+        it('key with ALT modifier is not handled', function () {
+            input('10', 0, {key: 65, altKey: true}, false, '10');
+            input('10', 2, {key: 65, altKey: true}, false, '10');
+            input('10', 0, {key: 65, altKey: true}, false, '10', 2);
         });
     });
 });
