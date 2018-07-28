@@ -1,3 +1,5 @@
+import '../src/module';
+
 describe('service', function () {
 
     var easyMask;

@@ -18,8 +18,7 @@ module.exports = function(config) {
       'bower_components/jquery/dist/jquery.js',
       'bower_components/angular/angular.js',
       'bower_components/angular-mocks/angular-mocks.js',
-      'src/**/*.js',
-      'tests/**/*.spec.js'
+      { pattern: 'tests/**/*.spec.js', watched: false }
     ],
 
 
@@ -31,6 +30,21 @@ module.exports = function(config) {
     // preprocess matching files before serving them to the browser
     // available preprocessors: https://npmjs.org/browse/keyword/karma-preprocessor
     preprocessors: {
+        'tests/**/*.spec.js': ['rollup']
+    },
+
+
+    rollupPreprocessor: {
+        /**
+         * This is just a normal Rollup config object,
+         * except that `input` is handled for you.
+         */
+        plugins: [],
+        output: {
+            format: 'iife',            // Helps prevent naming collisions.
+            name: 'wtEasyMask',        // Required for 'iife' format.
+            sourcemap: 'inline'        // Sensible for testing.
+        }
     },
 
 

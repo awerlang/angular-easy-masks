@@ -1,5 +1,8 @@
 /* global inject */
 /// <reference path="../typings/jasmine/jasmine.d.ts"/>
+
+import '../src/module';
+
 describe('provider', function () {
 
     var easyMaskProvider;

@@ -1,6 +1,9 @@
 /* global inject */
 /// <reference path="../typings/jasmine/jasmine.d.ts"/>
 /// <reference path="../typings/jquery/jquery.d.ts"/>
+
+import '../src/module';
+
 describe('directive', function () {
 
     function expectTrue(what, actualValue, expectedValue) {
@@ -8,7 +11,7 @@ describe('directive', function () {
             expect(what).toBe(expectedValue);
         }
     }
-    
+
     describe('simple mask', function () {
 
         var element, scope;
@@ -297,7 +300,7 @@ describe('directive', function () {
         });
 
     });
-    
+
     describe('keypress', function () {
         var element, scope;
         beforeEach(module('wt.easy'));
@@ -307,11 +310,11 @@ describe('directive', function () {
 
             document.body.appendChild(element[0]);
         }));
-        
+
         afterEach(function () {
             element.remove();
         });
-        
+
         function input(initialValue, caretPosition, keyCode, shouldPreventDefault, output, selLength) {
             scope.inputText = initialValue;
             scope.$digest();
