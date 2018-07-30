@@ -1,3 +1,11 @@
+### 0.2.4 (2018-07-30)
+
+
+#### Bug Fixes
+
+* **directive:** don't trap non-printable characters in Firefox ([7e0f3d27](https://github.com/awerlang/angular-easy-masks/commit/7e0f3d27), closes [#21](https://github.com/awerlang/angular-easy-masks/issues/21))
+
+
 ### 0.2.3 (2018-06-17)
 
 

@@ -70,7 +70,7 @@ Also, the following requirements can be achieved by means of integrating with ot
 
 ## Future Work
 
-Current version: **v0.2.3**
+Current version: **v0.2.4**
 
 * v0.3.0
   * Delegate validation to custom services;
