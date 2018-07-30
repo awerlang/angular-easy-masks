@@ -112,6 +112,10 @@ or
 
 ## Installation
 
+### npm
+
+    npm --save install angular-easy-masks
+
 ### Bower
 
     bower install angular-easy-masks --save
@@ -121,6 +125,8 @@ or
 #### HTML
 
     <script type="text/javascript" src="release/angular-easy-masks.min.js"></script>
+
+OBS: Also available as `angular-easy-masks.js` (UMD, unminified) and `angular-easy-masks.esm.js` (ES2015 modules)
 
 #### JavaScript
 

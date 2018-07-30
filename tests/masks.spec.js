@@ -312,4 +312,19 @@ describe('service', function () {
             expect(myMask('1234A')).toEqual('1234-A');
         });
     });
+
+    describe('long mask', function () {
+        var myMask;
+        beforeEach(function () {
+            myMask = buildMask('99999.99999 99999.999999 99999.999999 9 99999999999999');
+        });
+
+        it('valid input', function () {
+            expect(myMask('99999.99999 99999.999999 99999.999999 9 99999999999999')).toEqual('99999.99999 99999.999999 99999.999999 9 99999999999999');
+        });
+
+        xit('invalid input', function () {
+            expect(myMask('99999.99999 99999.999999 99999.999999 9 999999999999991')).toEqual('99999.99999 99999.999999 99999.999999 9 99999999999999');
+        });
+    });
 });
