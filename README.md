@@ -116,7 +116,7 @@ or
 
     npm --save install angular-easy-masks
 
-### Bower
+### Bower (deprecated)
 
     bower install angular-easy-masks --save
 
