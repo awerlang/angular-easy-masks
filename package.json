@@ -1,6 +1,6 @@
 {
   "name": "angular-easy-masks",
-  "version": "0.2.4",
+  "version": "0.2.5",
   "description": "Angular component for input fields based on a configurable mask",
   "main": "release/angular-easy-masks.js",
   "browser": "release/angular-easy-masks.js",

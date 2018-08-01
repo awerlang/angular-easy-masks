@@ -36,6 +36,7 @@
 
         var re = /([^09ALZ]*)?([09ALZ]*)+/g;
         var groups,
+            length = 0,
             separators = [],
             mappers = [];
 
@@ -50,12 +51,14 @@
         while ((groups = re.exec(mask)) !== null && groups[0] !== '') {
             separators.push(groups[1]);
             var wildcardsInMask = groups[2].split('');
+            length += wildcardsInMask.length;
             result += '(' + wildcardsInMask.map(mapToRegExp).join('') + ')?';
             mappers.push(createReplacer(wildcardsInMask));
         }
 
         return {
             regExp: new RegExp('^' + result + '$'),
+            length: length,
             separators: separators,
             mappers: mappers
         };
@@ -70,7 +73,10 @@
         }
         var re = buildRegExp(mask);
 
-        var matches = re.regExp.exec(input.replace(/[^\dA-Za-z]/g, ''));
+        input = input.replace(/[^\dA-Za-z]/g, '');
+        var matches = input.length <= re.length
+            ? re.regExp.exec(input)
+            : false;
         if (matches) {
             var runningValue = '',
                 separatorsToInsert = re.separators,

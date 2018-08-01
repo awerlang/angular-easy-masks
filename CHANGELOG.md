@@ -1,3 +1,11 @@
+### 0.2.5 (2018-07-31)
+
+
+#### Bug Fixes
+
+* **masks:** Fast detection when typing additional characters ([71b69108](https://github.com/awerlang/angular-easy-masks/commit/71b69108), closes [#22](https://github.com/awerlang/angular-easy-masks/issues/22))
+
+
 ### 0.2.4 (2018-07-30)
 
 
